@@ -1,9 +1,13 @@
 import { ethers } from "ethers";
+import { DECIMAL } from "@/jsons/config/CONFIG_CONSTANT";
 
-function _expandTo18Decimals(n) {
-  var decimalPlaces = 18;
-  var amount = ethers.utils.parseUnits(Number(n).toString(), decimalPlaces);
+function _expandToDecimals(n) {
+  var amount = ethers.utils.parseUnits(Number(n).toString(), DECIMAL);
+  return amount;
+}
+function _divideToDecimals(n) {
+  var amount = n / 10 ** DECIMAL;
   return amount;
 }
 
-export { _expandTo18Decimals };
+export { _expandToDecimals, _divideToDecimals };

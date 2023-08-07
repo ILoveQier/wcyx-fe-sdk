@@ -8,7 +8,7 @@
 function dateTimeFunc(
   fmt = "yyyy-MM-dd hh:mm:ss",
   time = Date.now(),
-  addition
+  addition=''
 ) {
   if (fmt == null) {
     fmt = "yyyy-MM-dd hh:mm:ss";

@@ -14,4 +14,5 @@ function handleEllipseStr(str = "", startNum = 3, endNum = 3, ellipseNum = 3) {
     .join("")}${end}`;
 }
 
+
 export { handleEllipseStr };

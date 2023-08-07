@@ -1,10 +1,33 @@
 import { providers, ethers } from "ethers";
+import { PROVIDER_URL } from "@/jsons/config/CONFIG_CONSTANT";
 
-function _getSigner(userAddress) {
+async function _getSigner(userAddress, activeConnector) {
   try {
-    const provider = new providers.Web3Provider(window?.ethereum);
+    let Web3Provider = window?.ethereum;
+    if (activeConnector) {
+      Web3Provider = await activeConnector.getProvider();
+    }
+    const provider = new providers.Web3Provider(Web3Provider);
     const signer = provider.getSigner(userAddress);
     return signer;
+  } catch (error) {
+    return null;
+  }
+}
+function _getProvider(pvd_url) {
+  try {
+    const provider = new ethers.providers.JsonRpcProvider(
+      pvd_url || PROVIDER_URL
+    );
+    return provider;
+  } catch (error) {
+    return null;
+  }
+}
+async function _getBalance(provider, address) {
+  try {
+    let num = await provider.getBalance(address);
+    return Number(num) / 1e18;
   } catch (error) {
     return null;
   }
@@ -29,4 +52,4 @@ async function _multiCall(
   return arrs;
 }
 
-export { _getSigner, _getContract, _multiCall };
+export { _getProvider, _getBalance, _getSigner, _getContract, _multiCall };
